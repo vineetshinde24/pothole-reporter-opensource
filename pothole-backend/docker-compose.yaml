@@ -1,0 +1,25 @@
+services:
+  postgres:
+    image: ghcr.io/ferretdb/postgres-documentdb:16-0.107.0-ferretdb-2.7.0
+    container_name: pothole-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: pothole
+      POSTGRES_PASSWORD: pothole_dev_password
+      POSTGRES_DB: pothole_db
+    volumes:
+      - pothole_postgres_data:/var/lib/postgresql/data
+
+  ferretdb:
+    image: ghcr.io/ferretdb/ferretdb:2.7.0
+    container_name: pothole-ferretdb
+    restart: unless-stopped
+    depends_on:
+      - postgres
+    environment:
+      FERRETDB_POSTGRESQL_URL: postgres://pothole:pothole_dev_password@postgres:5432/pothole_db
+    ports:
+      - "27018:27017"
+
+volumes:
+  pothole_postgres_data:
