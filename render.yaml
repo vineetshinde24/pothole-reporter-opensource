@@ -1,0 +1,46 @@
+services:
+
+  - type: pserv
+    name: pothole-postgres
+    runtime: image
+    image:
+      url: ghcr.io/ferretdb/postgres-documentdb:16-0.107.0-ferretdb-2.7.0
+    plan: starter
+    region: singapore
+
+    envVars:
+      - key: POSTGRES_USER
+        value: pothole
+
+      - key: POSTGRES_PASSWORD
+        sync: false
+
+      - key: POSTGRES_DB
+        value: postgres
+
+    disk:
+      name: pothole-postgres-data
+      mountPath: /var/lib/postgresql/data
+      sizeGB: 10
+
+
+  - type: web
+    name: pothole-backend
+    runtime: docker
+    plan: starter
+    region: singapore
+
+    rootDir: pothole-backend
+    dockerfilePath: ./Dockerfile
+
+    healthCheckPath: /health
+
+    envVars:
+      - key: PORT
+        value: "10000"
+
+      - key: MONGO_URI
+        sync: false
+
+      - key: JWT_SECRET
+        generateValue: true
