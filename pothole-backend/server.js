@@ -15,10 +15,10 @@ console.log('JWT_SECRET is properly configured');
 // CORS Configuration
 app.use(cors({
   origin: [
-    'http://localhost:5173',  // dev
-    'http://localhost:4173',  // preview
-    'https://pothole-reporter-app.onrender.com',  // render 
-    'https://pothole-reporter-app-beta.vercel.app' // vercel 
+  'http://localhost:5173',
+  'http://localhost:4173',
+  'http://192.168.0.104:5173',
+  'https://pothole-reporter-opensource.vercel.app'
 
   ],
   methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
