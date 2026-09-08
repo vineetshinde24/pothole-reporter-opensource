@@ -6,7 +6,7 @@ services:
     environment:
       POSTGRES_USER: pothole
       POSTGRES_PASSWORD: pothole_dev_password
-      POSTGRES_DB: pothole_db
+      POSTGRES_DB: postgres
     volumes:
       - pothole_postgres_data:/var/lib/postgresql/data
 
@@ -17,7 +17,7 @@ services:
     depends_on:
       - postgres
     environment:
-      FERRETDB_POSTGRESQL_URL: postgres://pothole:pothole_dev_password@postgres:5432/pothole_db
+      FERRETDB_POSTGRESQL_URL: postgres://pothole:pothole_dev_password@postgres:5432/postgres
     ports:
       - "27018:27017"
 
